@@ -54,7 +54,7 @@ read -p "By default DHCP configuration is used. Edit to set up a static networki
 if [[ $REPLY =~ ^[Yy]$ ]]; then nmtui edit; fi
 
 echo;
-read -p "Make this prompt go not appear the next time you log in (it can always be restored later)? " -n 1 -r; echo
+read -p "Stop these questions from showing in future logins? " -n 1 -r; echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then remove_this_shell; fi
 
 echo; echo "Server configuration is done, starting your shell now."; echo
