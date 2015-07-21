@@ -11,5 +11,4 @@ Now whenever the root user logs in, she is prompted to choose a new root passwor
 Requirements:
 * nmtui must be installed for non-DHCP networking configuration to work
 
-Copyright(C) Intigua 2015
 
