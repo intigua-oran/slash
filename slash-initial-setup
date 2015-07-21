@@ -15,11 +15,6 @@
 #   limitations under the License.
 
 
-function change_root_pwd {
-   echo ""
-}
-
-
 function do_change_hostname {
    echo "HOSTNAME=$1" > /etc/sysconfig/network
    sed -i -E "s/(127.0.0.1.*)/\1 $1/" /etc/hosts
