@@ -1,14 +1,23 @@
-slash
+SLASH Shell
+===========
+SLASH is a utility that can be used when building a virtual appliance to make its initial setup easier for end-users.
+When the end-user first logs into a SLASH-enabled virtual appliance, she is asked a few setup questions, and can respond right in the terminal.
+Currently SLASH can offer to replace the built-in root password, set the hostname, and set up static networking settings.
+Finally, SLASH lets the user remove it from subsequence login shells.
+Internally SLASH is implemented as a Linux shell that simply runs its set of commands and then uses BASH.
 
-Shell that helps set up common parameters for a virtual appliance for a Red Hat or CentOS server.
-Tested with CentOS 7.
+Supported Platforms
+-------------------
+SLASH has been tested with CentOS 7.
 
-To set up SLASH:
-Put the two scripts in /usr/local/bin, and edit /etc/password so that the root user's shell is /usr/local/bin/slash
-
-Now whenever the root user logs in, she is prompted to choose a new root password, hostname, networking, and whether or not to repeat this script in the next login.
-
-Requirements:
+Pre-requisites
+--------------
 * nmtui must be installed for non-DHCP networking configuration to work
 
+Setup
+-----
+To set up SLASH in a virtual appliance:
+* Put the slash and slash-initial-setup scripts in /usr/local/bin
+* Make sure they are executable
+* Edit /etc/password so that the root user's shell is /usr/local/bin/slash
 
