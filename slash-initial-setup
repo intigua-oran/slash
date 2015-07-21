@@ -1,0 +1,52 @@
+#!/bin/bash
+
+function change_root_pwd {
+   echo ""
+}
+
+
+function do_change_hostname {
+   echo "HOSTNAME=$1" > /etc/sysconfig/network
+   sed -i -E "s/(127.0.0.1.*)/\1 $1/" /etc/hosts
+   echo $1 > /etc/hostname
+   /usr/bin/hostname $1
+
+   echo "Restarting networking with the new hostname \"$1\"..."
+   /etc/init.d/network restart
+}
+
+function change_hostname {
+   read -p "New hostname: "
+   HN=$REPLY
+   read -p "Repeat new hostname: "
+   HN2=$REPLY
+   if [ "$HN" != "$HN2" ]; then echo "Hostnames don't match, skipping"; exit 0; fi
+   if [ "$HN" == "" ]; then echo "Hostname is invalid, skipping."; exit 0; fi
+   echo "new hostname is: $REPLY"
+   do_change_hostname $HN
+}
+
+function remove_this_shell {
+   sed -i -E "s;($USER:x:.*:.*:.*:/.*):/usr/local/bin/slash;\\1:/bin/bash;" /etc/passwd && \
+   echo "Done! To run this setup procedure again, just run /usr/local/bin/slash-initial-setup"
+}
+
+echo "This short procedure will help you set up the server."; echo
+
+read -p "Change root password now? " -n 1 -r; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then passwd; fi
+
+read -p "Change the hostname now? " -n 1 -r; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then change_hostname; fi
+
+echo;
+read -p "By default DHCP configuration is used. Edit to set up a static networking configuration? " -n 1 -r; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then nmtui edit; fi
+
+echo;
+read -p "Make this prompt go not appear the next time you log in (it can always be restored later)? " -n 1 -r; echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then remove_this_shell; fi
+
+echo; echo "Server configuration is done, starting your shell now."; echo
+
+

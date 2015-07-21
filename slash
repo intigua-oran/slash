@@ -1,0 +1,3 @@
+#!/bin/bash
+
+bash --init-file <(echo /usr/local/bin/slash-initial-setup)
