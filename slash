@@ -14,4 +14,8 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
-bash --init-file <(echo /usr/local/bin/slash-initial-setup)
+if [ $# -eq 0 ]; then
+	bash --init-file <(echo /usr/local/bin/slash-initial-setup)
+else
+	bash $@
+fi
