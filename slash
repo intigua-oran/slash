@@ -17,5 +17,5 @@
 if [ $# -eq 0 ]; then
 	bash --init-file <(echo /usr/local/bin/slash-initial-setup)
 else
-	bash $@
+	bash "$@"
 fi
